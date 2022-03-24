@@ -2,9 +2,30 @@
 
 ## Package Structure
 
-`cmd` : Executables
-`pkg` : Source Code
-`deploy`: Kubernetes YAML files
+* `cmd/` : Executables
+* `pkg/` : Source Code
+* `deploy/`: Kubernetes YAML files
+* `Makefile`: Commands for all tasks
+* `Dockerfile`: For creating the application docker image
+
+## Architecture
+
+The application runs a HTTP server that has 2 `GET` endpoints:
+
+* `/metrics`: list Prometheus metrics
+* `/routes` : list of routes that are monitored
+
+During application startup:
+
+* Metrics are created and registered with Prometheus library
+* The monitoring process is started
+* The routes are read
+* Server config is created
+* HTTP server is started
+
+The monitoring is done by allocating a separate go routine for each URL to be monitored inside which a ticker fires on a default interval causing the process to check the URL uptime, time taken in milliseconds and then update metrics.
+
+The prometheus go client is used which exposes the metrics data in the format that can be scraped and ingested by Prometheus.
 
 ## Docker Image
 
@@ -53,4 +74,14 @@ kubectl proxy
 
 * The K8s UI dashboard should now be visible
 
-Follow this tutorial: <https://github.com/scalastic/local-k8s-installation>
+Follow this tutorial: <https://github.com/scalastic/local-k8s-installation> for setting up Prometheus and Grafana on docker-desktop
+
+// TODO
+
+* Update README
+* Add unit tests
+* Setup deployment of the app
+* Setup Prom metrics and Grafana dashboard
+* Add screenshot to README
+* Add architecture of the app to README
+* Make the port: 9000 configurable via Docker build arg and env variable
