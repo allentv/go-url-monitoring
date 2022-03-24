@@ -46,3 +46,5 @@ kubectl proxy
 * Navigate to the url: <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/> and enter the admin token from before
 
 * The K8s UI dashboard should now be visible
+
+Follow this tutorial: <https://github.com/scalastic/local-k8s-installation>
