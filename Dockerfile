@@ -15,7 +15,7 @@ RUN go mod download
 COPY . .
 
 # Build the application and strip debug info
-RUN go build -ldflags="-s -w" -o main .
+RUN go build -ldflags="-s -w" -o main cmd/app/main.go
 
 # Compress the binary
 RUN ./upx --best --lzma ./main
