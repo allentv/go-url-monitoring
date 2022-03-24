@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/allentv/go-url-monitoring/metrics"
+	"github.com/allentv/go-url-monitoring/pkg/metrics"
 )
 
 // WatchURL will monitor the uptime for an URL

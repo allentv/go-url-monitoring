@@ -3,7 +3,7 @@ package monitor
 import (
 	"time"
 
-	"github.com/allentv/go-url-monitoring/router"
+	"github.com/allentv/go-url-monitoring/pkg/router"
 )
 
 // Start will trigger the monitoring for all the available URLs by assigning a ticker per URL
