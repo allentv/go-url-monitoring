@@ -1,5 +1,11 @@
 # go-url-monitoring
 
+## Package Structure
+
+`cmd` : Executables
+`pkg` : Source Code
+`deploy`: Kubernetes YAML files
+
 ## Docker Image
 
 Strips the debug symbols and compress the binary to achieve 2.5 MB binary size. When used with Google distroless, the docker image size is < 5MB
