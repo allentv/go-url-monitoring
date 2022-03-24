@@ -6,15 +6,11 @@ Strips the debug symbols and compress the binary to achieve 2.5 MB binary size. 
 
 ## Setting up Kubernetes
 
-I am using minikube to setup k8s on my mac machine.
+I am using docker-desktop to setup k8s on my mac machine.
 
 ### Steps
 
-* Start minikube with the latest version of k8s
-
-```bash
-minikube start --kubernetes-version=v1.23.3
-```
+* Start docker-desktop on Mac with kubernetes cluster enabled
 
 * Install Prometheus and Grafana
 
@@ -24,6 +20,29 @@ helm install prometheus prometheus-community/prometheus
 kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np
 
 helm repo add grafana https://grafana.github.io/helm-charts
-helm install grafana stable/grafana
+helm install grafana grafana/grafana
 kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
 ```
+
+* Install the k8s UI dashboard user and role binding
+
+```bash
+kubectl apply -f deploy/dashboard-user.yaml
+kubectl apply -f deploy/dashboard-rolebinding.yaml
+```
+
+* Get Admin token
+
+```bash
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
+
+* Start the proxy in another terminal
+
+```bash
+kubectl proxy
+```
+
+* Navigate to the url: <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/> and enter the admin token from before
+
+* The K8s UI dashboard should now be visible

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: url-monitor
+  labels:
+    app: url-monitor
+spec:
+  selector:
+    matchLabels:
+      app: url-monitor
+  template:
+    metadata:
+      labels:
+        app: url-monitor
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 9000
