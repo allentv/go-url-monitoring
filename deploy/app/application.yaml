@@ -18,3 +18,10 @@ spec:
           image: nginx:1.14.2
           ports:
             - containerPort: 9000
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 1000m
+            requests:
+              cpu: 100m
+              memory: 500Mi
