@@ -5,8 +5,8 @@ import (
 	"time"
 )
 
-// ServerConfig reprsents the configuration needed for the server
-type ServerConfig struct {
+// Config reprsents the configuration needed for the server
+type Config struct {
 	Domain         string
 	Port           string
 	Handler        http.Handler
@@ -17,8 +17,8 @@ type ServerConfig struct {
 }
 
 // NewDefaultConfig will create a default server configuration
-func NewDefaultConfig() *ServerConfig {
-	return &ServerConfig{
+func NewDefaultConfig() *Config {
+	return &Config{
 		Domain:         "0.0.0.0",
 		Port:           "9000",
 		Handler:        nil,
@@ -30,31 +30,31 @@ func NewDefaultConfig() *ServerConfig {
 }
 
 // UpdatePort will update the port
-func (s *ServerConfig) UpdatePort(port string) {
+func (s *Config) UpdatePort(port string) {
 	s.Port = port
 }
 
 // UpdateHandler will update the HTTP handler
-func (s *ServerConfig) UpdateHandler(h http.Handler) {
+func (s *Config) UpdateHandler(h http.Handler) {
 	s.Handler = h
 }
 
 // UpdateWriteTimeout will update the write timeout
-func (s *ServerConfig) UpdateWriteTimeout(d time.Duration) {
+func (s *Config) UpdateWriteTimeout(d time.Duration) {
 	s.WriteTimeout = d
 }
 
 // UpdateWriteTimeout will update the read timeout
-func (s *ServerConfig) UpdateReadTimeout(d time.Duration) {
+func (s *Config) UpdateReadTimeout(d time.Duration) {
 	s.ReadTimeout = d
 }
 
 // UpdateWriteTimeout will update the idle timeout
-func (s *ServerConfig) UpdateIdleTimeout(d time.Duration) {
+func (s *Config) UpdateIdleTimeout(d time.Duration) {
 	s.IdleTimeout = d
 }
 
 // UpdateDefaultTimeout will update the default timeout
-func (s *ServerConfig) UpdateDefaultTimeout(d time.Duration) {
+func (s *Config) UpdateDefaultTimeout(d time.Duration) {
 	s.DefaultTimeout = d
 }

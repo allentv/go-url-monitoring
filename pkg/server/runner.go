@@ -11,7 +11,7 @@ import (
 
 // Run will execute the server process with the provided config
 // Reference: https://github.com/gorilla/mux#graceful-shutdown
-func Run(srvConfig *ServerConfig) {
+func Run(srvConfig *Config) {
 	srv := &http.Server{
 		Addr: fmt.Sprintf("%s:%s", srvConfig.Domain, srvConfig.Port),
 		// Good practice to set timeouts to avoid Slowloris attacks.
