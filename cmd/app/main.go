@@ -8,8 +8,11 @@ import (
 )
 
 func main() {
+	// Register available custom metrics
 	metrics.Register()
-	monitor.Start()
+
+	// Start a monitoring process for each of the existing URLs
+	monitor.Start(router.GetMonitoredURLsConfig())
 
 	srvConfig := server.NewDefaultConfig()
 	srvConfig.UpdateHandler(router.New())
