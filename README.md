@@ -27,11 +27,17 @@ The monitoring is done by allocating a separate go routine for each URL to be mo
 
 The prometheus go client is used which exposes the metrics data in the format that can be scraped and ingested by Prometheus.
 
+## Local Development
+
+The Go program can be started by running `make run` which will start the Go binary at port `9000`. Using `Ctrl + C` on Mac should kill the process.
+
+To run all the tests, execute `make test`. The coverage report for various packages will be shown at the end of test execution. Potential race conditions are also tested with the `-race` flag for Go test runner.
+
 ## Docker Image
 
 Strips the debug symbols and compress the binary to achieve 2.5 MB binary size. When used with Google distroless, the docker image size is < 5MB
 
-## Setting up Kubernetes
+## Setting up Kubernetes (Incomplete)
 
 I am using docker-desktop to setup k8s on my mac machine.
 
@@ -73,15 +79,7 @@ kubectl proxy
 
 * The K8s UI dashboard should now be visible
 
-// TODO
-
-* Update README
-* Setup deployment of the app
-* Setup Prom metrics and Grafana dashboard
-* Add screenshot to README
-* Add architecture of the app to README
-* Make the port: 9000 configurable via Docker build arg and env variable
-
 ### References
 
 * Setting up Prometheus and Grafana on [docker-desktop](https://github.com/scalastic/local-k8s-installation)
+* [Collecting Prometheus metrics in Go](https://gabrieltanner.org/blog/collecting-prometheus-metrics-in-golang)
