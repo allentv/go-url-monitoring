@@ -3,10 +3,11 @@ package server
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
+
+	"github.com/rs/zerolog/log"
 )
 
 // Run will execute the server process with the provided config
@@ -23,8 +24,10 @@ func Run(srvConfig *Config) {
 
 	// Run our server in a goroutine so that it doesn't block.
 	go func() {
+		log.Info().Msg("Server started")
+		log.Info().Msg("Listening to incoming requests...")
 		if err := srv.ListenAndServe(); err != nil {
-			log.Println(err)
+			log.Fatal().Err(err)
 		}
 	}()
 
@@ -47,6 +50,6 @@ func Run(srvConfig *Config) {
 	// Optionally, you could run srv.Shutdown in a goroutine and block on
 	// <-ctx.Done() if your application should wait for other services
 	// to finalize based on context cancellation.
-	log.Println("shutting down")
+	log.Info().Msg("shutting down")
 	os.Exit(0)
 }

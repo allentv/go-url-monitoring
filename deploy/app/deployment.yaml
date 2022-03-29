@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: url-monitor
+  labels:
+    app: url-monitor
+spec:
+  selector:
+    matchLabels:
+      app: url-monitor
+  template:
+    metadata:
+      labels:
+        app: url-monitor
+    spec:
+      containers:
+        - name: url-monitor
+          image: go-url-monitoring
+          imagePullPolicy: Never
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          ports:
+            - containerPort: 9000
+              name: url-monitor
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 1000m
+            requests:
+              cpu: 100m
+              memory: 100Mi

@@ -39,17 +39,14 @@ I am using docker-desktop to setup k8s on my mac machine.
 
 * Start docker-desktop on Mac with kubernetes cluster enabled
 
-* Install Prometheus and Grafana
+* Verify that the k8s context is set to `docker-desktop`
 
 ```bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/prometheus
-kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np
-
-helm repo add grafana https://grafana.github.io/helm-charts
-helm install grafana grafana/grafana
-kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
+kubectl config set-context 'docker-desktop'
+kubectl config current-context
 ```
+
+* Install Prometheus and Grafana by running `kubectl apply -f` to the files in `deploy/prometheus` and `deploy/grafana`
 
 * Install the k8s UI dashboard user and role binding
 
@@ -57,6 +54,8 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 kubectl apply -f deploy/dashboard-user.yaml
 kubectl apply -f deploy/dashboard-rolebinding.yaml
 ```
+
+> Note: Run `make k8s-setup` to execute all of the above setups in one go
 
 * Get Admin token
 
@@ -74,14 +73,15 @@ kubectl proxy
 
 * The K8s UI dashboard should now be visible
 
-Follow this tutorial: <https://github.com/scalastic/local-k8s-installation> for setting up Prometheus and Grafana on docker-desktop
-
 // TODO
 
 * Update README
-* Add unit tests
 * Setup deployment of the app
 * Setup Prom metrics and Grafana dashboard
 * Add screenshot to README
 * Add architecture of the app to README
 * Make the port: 9000 configurable via Docker build arg and env variable
+
+### References
+
+* Setting up Prometheus and Grafana on [docker-desktop](https://github.com/scalastic/local-k8s-installation)

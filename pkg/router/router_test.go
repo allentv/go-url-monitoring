@@ -21,7 +21,14 @@ func (s *RouterSuite) TestNew() {
 	r.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
 		pathTemplate, err := route.GetPathTemplate()
 		if err == nil {
-			s.Contains([]string{"/metrics", "/routes"}, pathTemplate)
+			s.Contains(
+				[]string{
+					"/metrics",
+					"/routes",
+					"/ping",
+				},
+				pathTemplate,
+			)
 		}
 
 		return nil

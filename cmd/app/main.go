@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/rs/zerolog"
+
 	"github.com/allentv/go-url-monitoring/pkg/metrics"
 	"github.com/allentv/go-url-monitoring/pkg/monitor"
 	"github.com/allentv/go-url-monitoring/pkg/router"
@@ -8,6 +10,10 @@ import (
 )
 
 func main() {
+	zerolog.TimestampFieldName = "t"
+	zerolog.LevelFieldName = "l"
+	zerolog.MessageFieldName = "m"
+
 	// Register available custom metrics
 	metrics.Register()
 
